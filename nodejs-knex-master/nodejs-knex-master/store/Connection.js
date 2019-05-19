@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const connectionString = 'mongodb+srv://dbadmin:Pos2019@cluster0-0rt54.mongodb.net/test?retryWrites=true'
 
-const openConnection = () => mongoose.connect(connectionString)
+const openConnection = () => mongoose.connect(connectionString,{useNewUrlParser:true})
 
 module.exports = {
     openConnection,

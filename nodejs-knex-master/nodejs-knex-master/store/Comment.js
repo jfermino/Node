@@ -1,13 +1,15 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
-    author: {
+    produtoId: {
         type: String
     },
-    comment: {
+    autor: {
         type: String
     },
-})
-
-const Comment = mongoose.model('Comment', commentSchema)
+    comentario:{
+        type: String
+    }
+});
+const Comment = mongoose.model('dbComentarios', commentSchema,'listCometarios');
 module.exports = Comment
