@@ -1,16 +1,36 @@
 <p>Detalhe do produto</p>
- {{#each listProdutos}}
- <div>
-     ID:{{id}}
- </div>
-<div>
-    Nome: {{name}}
-</div>
-<div>
-    Descrição: {{description}}
-</div>
-<div>
-    Preço: {{price}}
-</div>
+{{#each listProdutos}}
+<form method="POST" action="/atualizar">
+    <input type="hidden" name="id" value="{{id}}">
+    <div>
+        ID:{{id}}
+    </div>
+    <div>
+        Nome: <input type="text" name="nome" value="{{name}}">
+    </div>
+    <div>
+        Descrição: <input type="text" name="desc" value="{{description}}">
+    </div>
+    <div>
+        Preço: <input type="text" name="preco" value="{{price}}">
+    </div>
+    <div style="margin-top: 10px">
+        <input type="submit" id="btnAtualizar" value="Salvar">
+    </div>
+</form>
 
- {{/each}}
+{{/each}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".btnAtualizar").click(function (e) {
+            var id = parseInt(e.target.dataset.id);
+            atulizarRegistro(id);
+        });
+    });
+
+
+    function atulizarRegistro(_id) {
+        $.get("/atualizar", { id: _id });
+    }
+</script>
