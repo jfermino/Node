@@ -8,12 +8,16 @@ module.exports = {
     get() {
         return db(TABLE_NAME).select('*')
     },
+
+    getProduto(product){
+        return db(TABLE_NAME).select('*').where('id',product.id);
+    },
     insert(product) {
         return db(TABLE_NAME).insert(product);
     },
     delete(product) {
         return db(TABLE_NAME)
-            .where('id', product.id)
+            .where('id',  product.id)
             .del();
     },
     update(product) {

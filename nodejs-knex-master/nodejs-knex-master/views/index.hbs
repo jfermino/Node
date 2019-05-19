@@ -7,5 +7,32 @@
             <p><b>{{this.name}}</b>: {{this.description}}</p>
             <p><b>Price</b>: ${{this.price}}</p>
         </li>
+        <div>
+            <input type="button" class="btnDeletar" data-id={{this.id}} value="Deletar"/>
+            <input type="button" class="btnMais" data-id={{this.id}} value="Saiba Mais"/>
+        </div>
     {{/each}}
 </ul>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".btnDeletar").click(function(e){
+            var id = parseInt(e.target.dataset.id);
+            deletarProduto(id);
+        });
+        $(".btnMais").click(function(e){
+            var id = parseInt(e.target.dataset.id);
+            exibirDetalhe(id);
+        });
+    })
+
+    function exibirDetalhe(_id){
+        document.location = window.location.origin + "/products/" + _id;
+    }
+
+    function deletarProduto(_id){
+        $.post("/deletar", {id: _id});
+    }
+</script>
+
+
