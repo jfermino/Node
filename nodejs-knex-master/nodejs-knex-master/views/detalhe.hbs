@@ -16,6 +16,14 @@
     <div style="margin-top: 10px">
         <input type="button" id="btnEditar" value="Editar">
     </div>
+    <div class="comentarios">
+        <h3>Comentários: </h3>
+        <ul>
+            <li> Comentario 1</li>
+            <li> Comentario 2</li>
+        </ul>
+        <input type="text" id="addComentario"><input type="button" value="Enviar">
+    </div>
 </div>
 <div id="editForm">
 <form method="POST" action="/atualizar">
@@ -46,12 +54,15 @@
         $("#editForm").hide();
 
         $("#btnEditar").click(function(e){
-            $("#dispForm").hide();
+            $("#dispForm").hide();  
             $("#editForm").show();
         });
         $(".btnAtualizar").click(function (e) {
             var id = parseInt(e.target.dataset.id);
             atulizarRegistro(id);
+        });
+        $("#addComentario").click(function(e){
+            salvarComentario();
         });
     });
 
@@ -59,4 +70,20 @@
     function atulizarRegistro(_id) {
         $.get("/atualizar", { id: _id });
     }
+
+    function salvarComentario(){
+
+    }
 </script>
+<style>
+    ul{
+        padding-inline-start: 20px
+    }
+    li{
+            list-style-type: decimal;
+    }
+    input#addComentario {
+    width: 700px;
+    margin-right: 10px;
+}
+</style>
