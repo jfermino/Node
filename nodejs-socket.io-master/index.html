@@ -1,31 +1,45 @@
 <h1>Chat app</h1>
-
-<ul id="messages"></ul>
+<div id="perguntas"></div>
 <form id="message-form" action="">
     <input type="text"
         name="message"
         id="message"
-        autocomplete="off" />
+        autocomplete="off" required/>
     <button>Send!</button>
 </form>
+<ul id="messages"></ul>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
     const socket = io();
     const messagesList = document.getElementById('messages')
     const messageForm = document.getElementById('message-form')
+    var pos = -1;
+    var pergunta = {
+            resposta:"",
+        }
+
     messageForm.addEventListener('submit', e => {
         e.preventDefault()
         const inputMessage = document.getElementById('message')
         socket.emit('newMessage', inputMessage.value)
+        pergunta.resposta = inputMessage.value;
+        pergunta.pos = pos;
 
         inputMessage.value = ''
     })
 
     socket.on('messageResponse', msg => {
-        const messageItem = document.createElement('li')
-        messageItem.innerHTML = msg
-
-        messagesList.appendChild(messageItem)
+        if(msg.pos != -100){
+            var mensage = document.getElementById('perguntas')
+            mensage.innerHTML = msg.pergunta;
+            pos = msg.pos;
+        }else{
+            msg.listRespostas.forEach(element => {
+                const messageItem = document.createElement('li')
+                messageItem.innerHTML = element
+                messagesList.appendChild(messageItem)
+            });
+        }
     })
 </script>
